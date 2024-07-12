@@ -1,8 +1,10 @@
 # here,
-    we created our own schema to read data from file ,instead of using_default schema ex.option("inferschema","true") we created our own schema to read file 
-    as below mentioned
-    syntax:- schemaname = StructType([StructField("ColumnName",datatype),nullable True or False])
+#    we created our own schema to read data from file ,instead of using_default schema ex.option("inferschema","true") we created our own schema to read file 
+#   as below mentioned
+#    syntax:- schemaname = StructType([StructField("ColumnName",datatype),nullable True or False])
+
 from pyspark.sql.types import StructType ,StructField ,StringType , DoubleType , IntegerType 
+
 myschema = StructType([StructField("InvoiceNo",StringType(),True),
                       StructField("StockCode",StringType(),True),
                       StructField("Description",StringType(),True),
@@ -12,7 +14,13 @@ myschema = StructType([StructField("InvoiceNo",StringType(),True),
                       StructField("CustomerID",DoubleType(),True),
                       StructField("Country",StringType(),True)
                       ])
-df = spark.read.format("csv")\ # you can use any fileformate ex:-json,csv,
+
+# you can use any fileformate ex:-json,csv.xml
+
+df = spark.read.format("csv")\ 
 .schema(myschema)\
 .option("header","true")\
 .load("file_path")
+
+
+df.printSchema()
